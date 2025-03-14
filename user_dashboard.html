@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { width: 80%; margin: auto; text-align: center; padding: 20px; background: white; border-radius: 8px; margin-top: 20px; box-shadow: 0px 0px 10px #aaa; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid black; text-align: center; }
+        th { background: #007BFF; color: white; }
+        a { text-decoration: none; padding: 8px 12px; border-radius: 5px; display: inline-block; }
+        .delete-btn { background: red; color: white; }
+        .edit-btn { background: green; color: white; }
+        .nav { display: flex; justify-content: space-between; padding: 10px; background: #333; color: white; }
+        .nav a { color: white; margin: 0 10px; text-decoration: none; padding: 5px 10px; border-radius: 5px; }
+        .nav a:hover { background: #007BFF; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <span>Welcome, {{ session.get('username', 'Guest') }} ({{ session.get('role', 'User') }})</span>
+        <div>
+            <a href="/edit_profile">Edit Profile</a>
+            <a href="/add_plant">Add Plant</a>
+            <a href="/reminders">Reminders</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Your Gardening Preferences</h2>
+        {% if user_preferences %}
+            <p><strong>Preferred Soil Type:</strong> {{ user_preferences.soil_type }}</p>
+            <p><strong>Climate:</strong> {{ user_preferences.climate }}</p>
+        {% else %}
+            <p>No preferences set. <a href="/edit_profile">Update Preferences</a></p>
+        {% endif %}
+
+        <h2>Plant Recommendations</h2>
+        {% if plants %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Plant Name</th>
+                <th>Type</th>
+                <th>Age</th>
+                <th>Growth Stage</th>
+                <th>Care Info</th>
+                <th>Action</th>
+            </tr>
+            {% for plant in plants %}
+            <tr>
+                <td>{{ plant[0] }}</td>
+                <td>{{ plant[1] }}</td>
+                <td>{{ plant[2] }}</td>
+                <td>{{ plant[4] }} years</td>
+                <td>{{ plant[5] }}</td>
+                <td>{{ plant[3] }}</td>
+                <td>
+                    <a href="/delete_plant/{{ plant[0] }}" class="delete-btn">Delete</a>
+                    <a href="/edit_plant/{{ plant[0] }}" class="edit-btn">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No plants added yet. <a href="/add_plant">Add a plant</a></p>
+        {% endif %}
+
+        <h2>Upcoming Reminders</h2>
+        {% if reminders %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Plant Name</th>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </tr>
+            {% for reminder in reminders %}
+            <tr>
+                <td>{{ reminder[0] }}</td>
+                <td>{{ reminder[1] }}</td>
+                <td>{{ reminder[2] }}</td>
+                <td>{{ reminder[3] }}</td>
+                <td><a href="/delete_reminder/{{ reminder[0] }}" class="delete-btn">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No upcoming reminders. <a href="/reminders">Set a reminder</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #34495E;
+            padding: 15px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #1ABC9C;
+        }
+
+        /* Section Styles */
+        section {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2C3E50;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            background-color: #1ABC9C;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .actions button:hover {
+            background-color: #16A085;
+        }
+
+        footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <p>Welcome, Admin</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#user-management">User Management</a></li>
+                <li><a href="#plant-database">Plant Database</a></li>
+                <li><a href="#system-functionality">System Functionality</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <section id="user-management">
+            <h2>User Management</h2>
+            <div class="actions">
+                <button onclick="location.href='{{ url_for('add_user') }}'">Add New User</button>
+                <button onclick="location.href='{{ url_for('view_users') }}'">View Users</button>
+                <button onclick="location.href='{{ url_for('edit_user') }}'">Edit User</button>
+            </div>
+        </section>
+
+        <section id="plant-database">
+            <h2>Plant Database</h2>
+            <div class="actions">
+                <button onclick="location.href='{{ url_for('add_plant') }}'">Add New Plant</button>
+                <button onclick="location.href='{{ url_for('view_plants') }}'">View Plants</button>
+<button onclick="location.href='{{ url_for('edit_plant') }}'">Edit Plant</button>
+{% for plant in plants %}
+    <form action="{{ url_for('delete_plant', plant_id=plant.id) }}" method="post">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ plant.name }}?');">
+            Delete {{ plant.name }}
+        </button>
+    </form>
+{% endfor %}
+            </div>
+        </section>
+
+        <section id="system-functionality">
+            <h2>System Functionality</h2>
+            <p>This section allows the admin to monitor and manage system-wide functionalities such as analytics, settings, and reports.</p>
+            <div class="actions">
+                <button onclick="location.href='{{ url_for('system_settings') }}'">System Settings</button>
+                <button onclick="location.href='{{ url_for('view_reports') }}'">View Reports</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Plant Management System. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

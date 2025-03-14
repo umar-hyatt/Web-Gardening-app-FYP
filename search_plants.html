@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Plants</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Search for Plants</h1>
+
+        <!-- Search Form -->
+        <form action="{{ url_for('search_plants') }}" method="GET">
+            <label for="search">Enter Plant Name:</label>
+            <input type="text" id="search" name="search" placeholder="e.g., Rose, Tulip">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if plants %}
+            <h2>Search Results:</h2>
+            <ul>
+                {% for plant in plants %}
+                    <li>
+                        <h3>{{ plant.name }}</h3>
+                        <p>{{ plant.description }}</p>
+                        <img src="{{ url_for('static', filename=plant.image_path) }}" alt="{{ plant.name }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elif search_query %}
+            <p>No results found for "{{ search_query }}". Please try again with a different name.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

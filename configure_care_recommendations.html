@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Configure Care Recommendations</h2>
+<form method="POST">
+    <label>Plant Category:</label>
+    <input type="text" name="category" required><br>
+
+    <label>Watering Schedule:</label>
+    <input type="text" name="watering_schedule" required><br>
+
+    <label>Sunlight Requirements:</label>
+    <input type="text" name="sunlight_requirements" required><br>
+
+    <label>Fertilizer Schedule:</label>
+    <input type="text" name="fertilizer_schedule" required><br>
+
+    <label>Pruning Guidelines:</label>
+    <input type="text" name="pruning_guidelines"><br>
+
+    <button type="submit">Save Recommendations</button>
+</form>
+
+<h3>Existing Care Recommendations</h3>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Watering</th>
+        <th>Sunlight</th>
+        <th>Fertilizer</th>
+        <th>Pruning</th>
+    </tr>
+    {% for rec in recommendations %}
+    <tr>
+        <td>{{ rec[1] }}</td>
+        <td>{{ rec[2] }}</td>
+        <td>{{ rec[3] }}</td>
+        <td>{{ rec[4] }}</td>
+        <td>{{ rec[5] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

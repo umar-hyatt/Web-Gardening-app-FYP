@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Track Plants{% endblock %}
+
+{% block content %}
+<h1>Track Your Plants</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Plant Name</th>
+            <th>Category</th>
+            <th>Age</th>
+            <th>Growth Stage</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for plant in plants %}
+        <tr>
+            <td>{{ plant[0] }}</td>
+            <td>{{ plant[1] }}</td>
+            <td>{{ plant[2] }}</td>
+            <td>{{ plant[5] }}</td>
+            <td>{{ plant[6] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

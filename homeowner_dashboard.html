@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Owner Dashboard</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #16A085;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #2C3E50;
+            padding: 15px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #1ABC9C;
+        }
+
+        /* Section Styles */
+        section {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2C3E50;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            background-color: #1ABC9C;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background-color: #16A085;
+        }
+
+        footer {
+            background-color: #34495E;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .profile-info, .plant-database, .care-recommendations, .growth-tracking {
+            margin-bottom: 30px;
+        }
+
+        .profile-info p, .plant-database p, .care-recommendations p, .growth-tracking p {
+            font-size: 16px;
+            color: #34495E;
+        }
+
+        /* Reminder Section */
+        .reminder-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .reminder-section input[type="date"], .reminder-section input[type="time"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .reminder-section button {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reminder-section button:hover {
+            background-color: #C0392B;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Home Owner Dashboard</h1>
+            <p>Welcome, Home Owner!</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#profile">Profile Management</a></li>
+                <li><a href="#plant-database">Search & View Plant Database</a></li>
+                <li><a href="#care-recommendations">Plant Care Recommendations</a></li>
+                <li><a href="#growth-tracking">Track Plant Growth</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li> <!-- Logout Link -->
+            </ul>
+        </nav>
+
+        <section id="profile">
+            <h2>Profile Management</h2>
+            <div class="profile-info">
+                <p>Manage your personal profile and plant care preferences.</p>
+                <div class="action-buttons">
+                    <button onclick="location.href='edit_profile.html'">Edit Profile</button>
+                    <button onclick="location.href='view_profile.html'">View Profile</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="plant-database">
+            <h2>Search & View Plant Database</h2>
+            <div class="plant-database">
+                <p>Search the plant database to find detailed information on various plants suitable for your home.</p>
+                <div class="action-buttons">
+                    <button onclick="location.href='search_plants.html'">Search Plant Database</button>
+                    <button onclick="location.href='view_plants.html'">View Plant Database</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="care-recommendations">
+            <h2>Personalized Plant Care Recommendations</h2>
+            <div class="care-recommendations">
+                <p>Get customized recommendations for your plants to ensure they thrive in your environment.</p>
+                <div class="action-buttons">
+                    <button onclick="location.href='care_recommendations.html'">Get Recommendations</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth-tracking">
+            <h2>Track Plant Growth</h2>
+            <div class="growth-tracking">
+                <p>Track the growth of your plants and set reminders to keep your plants healthy.</p>
+                <div class="action-buttons">
+                    <button onclick="location.href='growth_tracking.html'">Track Growth</button>
+                </div>
+            </div>
+            <div class="reminder-section">
+                <h3>Set a Growth Reminder</h3>
+                <input type="date" id="reminder-date" placeholder="Select Date">
+                <input type="time" id="reminder-time" placeholder="Select Time">
+                <button onclick="setReminder()">Set Reminder</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Plant Management System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function setReminder() {
+            let date = document.getElementById('reminder-date').value;
+            let time = document.getElementById('reminder-time').value;
+
+            if (!date || !time) {
+                alert("Please select both date and time for the reminder.");
+            } else {
+                alert(`Reminder set for ${date} at ${time}`);
+            }
+        }
+    </script>
+</body>
+</html>

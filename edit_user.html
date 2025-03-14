@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Edit User</h1>
+    
+    <!-- Check for error message -->
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    <form method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ user.username }}" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="{{ user.password }}" required><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+            <option value="Admin" {% if user.role == 'Admin' %}selected{% endif %}>Admin</option>
+            <option value="Gardener" {% if user.role == 'Gardener' %}selected{% endif %}>Gardener</option>
+            <option value="Supervisor" {% if user.role == 'Supervisor' %}selected{% endif %}>Supervisor</option>
+            <option value="Home Owner" {% if user.role == 'Home Owner' %}selected{% endif %}>Home Owner</option>
+        </select><br>
+
+        <input type="submit" value="Save Changes">
+    </form>
+    
+    <a href="{{ url_for('view_users') }}">Back to Users</a>
+</body>
+</html>
